@@ -1,0 +1,26 @@
+{
+    "name": "yurikus.hephaestus",
+    "version": "2.0.3",
+    "main": "src/mod.js",
+    "license": "MIT",
+    "author": "alexkarpen, yurikus",
+    "sptVersion":"~3.11",
+    "scripts": {
+        "pack-release": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"$pkg = Resolve-Path package.json; $root = Split-Path $pkg -Parent; $parent = Split-Path $root -Parent; $json = Get-Content $pkg | ConvertFrom-Json; $v = $json.version; $n = $json.name; $temp = Join-Path $root 'temp_pack'; $target = Join-Path $temp ('user/mods/' + $n + '-' + $v); New-Item -Path $target -ItemType Directory -Force | Out-Null; Copy-Item -Path (Join-Path $root '*') -Destination $target -Recurse -Force -Exclude 'temp_pack'; & 'C:/Program Files/WinRAR/rar.exe' a -r -ep1 (Join-Path $parent ($n + '-' + $v + '.rar')) (Join-Path $temp 'user'); Remove-Item -Recurse -Force $temp\"",
+        "setup:environment": "npm i",
+        "build:unzipped": "copyfiles -e \"./node_modules/**/*.*\" -e \"./dist/**/*.*\" -e \"./package-lock.json\" -e \"./tsconfig.json\" -e \"./README.txt\" -e \"./mod.code-workspace\" ./**/*.* ./dist",
+        "zip:files": "cd dist/ && bestzip ../mod.zip *",
+        "build:zip": "npm run clean:environment && npm run build:unzipped && npm run zip:files",
+        "clean:environment": "node -e \"require('fs').rm('mod.zip', ()=>{})\" && node -e \"require('fs').rmdir('./dist/',{recursive:true},()=>{})\""
+    },
+    "devDependencies": {
+        "@types/node": "^14.15.3",
+        "@typescript-eslint/eslint-plugin": "^4.33.0",
+        "@typescript-eslint/parser": "^4.33.0",
+        "copyfiles": "2.4.1",
+        "eslint": "7.26.0",
+        "tsyringe": "4.8.0",
+        "typescript": "4.6.4",
+        "bestzip": "2.2.1"
+    }
+}

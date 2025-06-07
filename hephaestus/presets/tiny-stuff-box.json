@@ -1,0 +1,19 @@
+[
+    {
+        "Id": "67f20931b182f442aa4d5b17",
+        "Name": "Tiny Stuff Box",
+        "Root": "67f20933ecc4791eceaa99e4",
+        "Items": [
+            {
+                "_id": "67f20933ecc4791eceaa99e4",
+                "_tpl": "5b7c710788a4506dec015958",
+                "parentId": "hideout",
+                "slotId": "hideout",
+                "upd": {
+					"UnlimitedCount": true,
+					"StackObjectsCount": 999
+                }
+            }
+        ]
+    }
+]
